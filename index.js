@@ -3,6 +3,7 @@ const app = express()
 
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
+const cors = require('cors')
 
 app.use(bodyParser.json())
 morgan.token('body', req => {
@@ -13,6 +14,7 @@ app.use(morgan('tiny'))
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body', {
   skip: (req, res) => { return req.method !== 'POST' }
 }))
+app.use(cors())
 
 let persons = [
   {
@@ -92,5 +94,5 @@ app.get('/info', (req, res) => {
   res.send(`<div><p>Phonebook has info for ${length} people</p><p>${date.toString()}</p></div>`)
 })
 
-const PORT = 3001
+const PORT = process.env.PORT || 3001
 app.listen(PORT)
