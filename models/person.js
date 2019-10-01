@@ -7,8 +7,8 @@ console.log('Connecting to', url)
 
 mongoose.set('useFindAndModify', false)
 
-mongoose.connect(url, { useNewUrlParser: true })
-  .then(result => {
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
     console.log('Connected to MongoDB')
   })
   .catch(e => {

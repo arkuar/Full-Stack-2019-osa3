@@ -15,7 +15,7 @@ morgan.token('body', req => {
 
 app.use(morgan('tiny'))
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body', {
-  skip: (req, res) => { return req.method !== 'POST' }
+  skip: (req) => { return req.method !== 'POST' }
 }))
 app.use(cors())
 app.use(express.static('build'))
@@ -40,7 +40,7 @@ app.get('/api/persons/:id', (req, res, next) => {
 
 app.delete('/api/persons/:id', (req, res, next) => {
   Person.findByIdAndRemove(req.params.id)
-    .then(result => {
+    .then(() => {
       res.status(204).end()
     })
     .catch(error => next(error))
